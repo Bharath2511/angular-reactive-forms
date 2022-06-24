@@ -14,6 +14,73 @@
 
           Upon submitting the form, simply print the value to the console
       -->
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="projectName">Project Name</label>
+          <input
+            type="text"
+            id="projectName"
+            class="form-control"
+            formControlName="projectName"
+          />
+          <span
+            class="helper-block"
+            *ngIf="
+              signupForm.get('projectName').touched &&
+              !signupForm.get('projectName').valid
+            "
+          >
+            <span
+              class="helper-block"
+              *ngIf="signupForm.get('projectName').errors?.required"
+              >This field is required
+            </span>
+            <span
+              class="helper-block"
+              *ngIf="signupForm.get('projectName').errors?.invalidProjectName"
+              >This name is already taken
+            </span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+          />
+          <span
+            class="helper-block"
+            *ngIf="
+              signupForm.get('email').touched && !signupForm.get('email').valid
+            "
+            ><span *ngIf="signupForm.get('email').errors['email']">
+              Please enter a valid email
+            </span>
+            <span *ngIf="signupForm.get('email').errors['required']">
+              This field cannot be empty
+            </span>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="email">Project Status</label>
+          <select
+            type="text"
+            id="projectStatus"
+            class="form-control"
+            formControlName="projectStatus"
+          >
+            <option
+              *ngFor="let status of projectStatusList"
+              [value]="status.value"
+            >
+              {{ status.name }}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
   </div>
 </div>
